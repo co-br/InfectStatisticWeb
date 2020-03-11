@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新型冠状病毒全国分布图</title>
+    <!--引入echarts-->
+    <script src="echarts.min.js"></script>
+    <!--引入中国地图-->
+    <script src="Map/china.js"></script>
+</head>
+
+<body>
+    <p id="currentConfirmedCount"></p>
+    <p id="confirmedCount"></p>
+    <p id="suspectedCount"></p>
+    <p id="curedCount"></p>
+    <p id="deadCount"></p>
+    <p id="seriousCount"></p>
+    <p id="suspectedIncr"></p>
+    <p id="currentConfirmedIncr"></p>
+    <p id="confirmedIncr"></p>
+    <p id="curedIncr"></p>
+    <p id="deadIncr"></p>
+    <p id="seriousIncr"></p>
+
+
+
+    <!--易感人群-->
+    <p id="susceptiblePop"></p>
+
+    <!--潜伏期-->
+    <p id="incubationPeriod"></p>
+
+
+
+    <!--宿主-->
+    <p id="parasitifer"></p>
+
+    <!--病毒-->
+    <p id="virus"></p>
+    <!--传染源-->
+    <p id="source"></p>
+    <!--传染途径-->
+    <p id="route"></p>
+
+
+    <!--定义容器-->
+    <div id="container" style="width: 1200px;height: 1000px;"></div>
+
+
+
+    <!--将图标配置应用到容器里-->
+    <script>
+
+        //存储
+        var epidemicData = [];
+        fetch('./server/data.json')
+            .then(res => res.json())//把可读的数据流转为json格式
+            .then(res => {
+                //console.log(res);
+                //获取各省数据
+                var getListByCountryTypeService1 = res.getListByCountryTypeService1;
+                //处理返回的数据，转为echarts可直接使用的数据
+                getListByCountryTypeService1.forEach(element => {
+                    epidemicData.push({
+                        name: element.provinceShortName,
+                        value: element.currentConfirmedCount,
+                        deadCount: element.deadCount,
+                        curedCount: element.curedCount
+
+                    });
+                    //获取全国数据，以及和昨日对比的数据
+                    var getStatisticsService = res.getStatisticsService;
+                    //更新网页上全国数据以及和昨日对比的数据
+                    document.getElementById('currentConfirmedCount').innerHTML = "现存确诊" + getStatisticsService.currentConfirmedCount;
+                    document.getElementById('confirmedCount').innerHTML = "累计确诊" + getStatisticsService.confirmedCount;
+                    document.getElementById('suspectedCount').innerHTML = "疑似人数" + getStatisticsService.suspectedCount;
+                    document.getElementById('curedCount').innerHTML = "治愈人数" + getStatisticsService.curedCount;
+                    document.getElementById('deadCount').innerHTML = "死亡人数" + getStatisticsService.deadCount;
+                    document.getElementById('seriousCount').innerHTML = "现存重症" + getStatisticsService.seriousCount;
+                    document.getElementById('suspectedIncr').innerHTML = "疑似人数较昨日" + getStatisticsService.suspectedIncr;
+                    document.getElementById('currentConfirmedIncr').innerHTML = "现存确诊较昨日" + getStatisticsService.currentConfirmedIncr;
+                    document.getElementById('confirmedIncr').innerHTML = "累计确诊较昨日" + getStatisticsService.confirmedIncr;
+                    document.getElementById('curedIncr').innerHTML = "治愈人数较昨日" + getStatisticsService.curedIncr;
+                    document.getElementById('deadIncr').innerHTML = "死亡人数较昨日" + getStatisticsService.deadIncr;
+                    document.getElementById('seriousIncr').innerHTML = "现存重症较昨日" + getStatisticsService.seriousIncr;
+                    //更新网页上关于疫情的描述，如潜伏期、宿主等
+                    document.getElementById('susceptiblePop').innerHTML = getStatisticsService.remark1;
+                    document.getElementById('incubationPeriod').innerHTML = getStatisticsService.remark2;
+                    document.getElementById('parasitifer').innerHTML = getStatisticsService.remark3;
+                    document.getElementById('virus').innerHTML = getStatisticsService.note1;
+                    document.getElementById('source').innerHTML = getStatisticsService.note2;
+                    document.getElementById('route').innerHTML = getStatisticsService.note3;
+
+
+                });
+                //将图表实例化和容器关联
+                var myChart = echarts.init(document.getElementById("container"));
+                //配置图表数据信息
+                myChart.setOption({
+                    title: {
+                        text: '新型冠状病毒全国分布图',
+                        left: 'center'
+                    },
+                    //设置背景色
+                    backgroundColor: "white",
+                    //视觉映射
+                    visualMap: {
+                        type: 'piecewise',//设置为分段
+                        pieces: [
+                            { gt: 10000, color: '#5E090E' },            // (10000, Infinity]
+                            { gte: 1000, lte: 10000, color: '#811c24' },  // [1000, 10000]
+                            { gte: 500, lte: 999, color: '#cb2a2f' },  // [500, 999]
+                            { gte: 100, lte: 499, color: '#e55a4e' },   // [100, 499]
+                            { gte: 10, lte: 99, color: '#f59e83' },   // [10, 99]
+                            { gte: 1, lte: 9, color: '#fdebcf' },   // [1, 9]
+                            { gte: 0, lte: 0, color: 'white' },                // 0
+                        ]
+
+                    },
+
+                    tooltip: {
+                        formatter: function (params) {
+                            //console.log(params);
+                            return `地区：${params.name}<br/>现存确诊：${params.value || 0}<br/>
+                            治愈：${(params.data && params.data.curedCount) || 0}<br/>死亡：${(params.data && params.data.deadCount) || 0}`;
+                        }
+                    },
+
+                    //系列列表。每个系列通过 type 决定自己的图表类型
+                    series: [
+                        {
+                            type: 'map',//设置图表为地图
+                            map: 'china',//设置地图为中国地图
+                            //设置图形上的文本标签
+                            label: {
+                                show: true
+                            },
+                            //设置当前视角的缩放比例
+                            zoom: 1.2,
+                            //设置数据
+                            data: epidemicData,
+                            label: {
+                                show: true
+                            },
+                        }
+                    ]
+
+                });
+
+            })
+
+    </script>
+
+
+</body>
+
+</html>
