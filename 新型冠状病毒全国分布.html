@@ -59,7 +59,7 @@
         fetch('./server/data.json')
             .then(res => res.json())//把可读的数据流转为json格式
             .then(res => {
-                console.log(res);
+                //console.log(res);
                 //获取各省数据
                 var getListByCountryTypeService1 = res.getListByCountryTypeService1;
                 //处理返回的数据，转为echarts可直接使用的数据
@@ -152,7 +152,7 @@
                 });//end of myChart.setOption
                 myChart.on('click', function (params) {
                     //南海诸岛不跳转
-                    if(typeof(params.data)==typeof(undefined))    return;
+                    if (typeof (params.data) == typeof (undefined)) return;
                     //console.log(params.data);
                     //跳转页面，同时对参数进行编码
                     window.location.href = `./province.html?` +
