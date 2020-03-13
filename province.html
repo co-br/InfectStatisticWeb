@@ -26,9 +26,9 @@
 
 
     <!--定义容器-->
-    <div id="confirmData" style="width: 800px;height: 600px;"></div>
-    <div id="cureData" style="width: 800px;height: 600px;"></div>
-    <div id="deathData" style="width: 800px;height: 600px;"></div>
+    <div id="confirmData" style="width: 1000px;height: 600px;"></div>
+    <div id="cureData" style="width: 1000px;height: 600px;"></div>
+    <div id="deathData" style="width: 1000px;height: 600px;"></div>
 
 
     <script>
@@ -80,7 +80,12 @@
                         text: `${province}确诊人数趋势图`,
                         left: 'center'
                     },
-                    tooltip: {},
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                    },
                     legend: {
                         data: ['确诊人数'],
                         left: 'right',
@@ -122,7 +127,12 @@
                         text: `${province}治愈人数趋势图`,
                         left: 'center'
                     },
-                    tooltip: {},
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                    },
                     legend: {
                         data: ['治愈人数'],
                         left: 'right',
@@ -168,7 +178,12 @@
                         text: `${province}死亡人数趋势图`,
                         left: 'center'
                     },
-                    tooltip: {},
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                    },
                     legend: {
                         data: ['死亡人数'],
                         left: 'right',
@@ -176,7 +191,7 @@
                     },
                     xAxis: {
                         //设置x轴为时间轴
-                        type: 'time'
+                        type: 'time',
                     },
                     yAxis: {
                         name: '人'

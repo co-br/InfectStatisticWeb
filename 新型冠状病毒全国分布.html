@@ -158,7 +158,14 @@
                 });//end of myChart.setOption
                 myChart.on('click', function (params) {
                     //南海诸岛不跳转
-                    if (typeof (params.data) == typeof (undefined)) return;
+                    if (typeof (params.data) == typeof (undefined)) {
+                        alert("暂无详细数据");
+                        return;
+                    }
+                    if (params.data.name == "台湾" || params.data.name == "香港" || params.data.name == "澳门") {
+                        alert("暂无详细数据");
+                        return;
+                    }
                     //console.log(params.data);
                     //跳转页面，同时对参数进行编码               
                     window.location.href = `./province.html?` +
