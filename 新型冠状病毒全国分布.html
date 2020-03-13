@@ -13,56 +13,54 @@
 </head>
 
 <body>
-<div id="AllDataBox">
-    <div id="currentConfirmedBox" class="DataBox" style="color: #FF8727;">
-        <p id="currentConfirmedCount"></p>
-        <p id="currentConfirmedIncr" class="cmp"></p>
-    </div>
-    <div id="confirmedBox" class="DataBox" style="color: #D01313;">
-        <p id="confirmedCount"></p>
-        <p id="confirmedIncr" class="cmp"></p>
-    </div>
-    <div id="SuspectBox" class="DataBox" style="color: #FDE613;">
-        <p id="suspectedCount"></p>
-        <p id="suspectedIncr" class="cmp"></p>
-    </div>
-    <div id=CuredBox class="DataBox" style="color: #63F0B5;">
-        <p id="curedCount"></p>
-        <p id="curedIncr" class="cmp"></p>
-    </div>
-    <div id="DeadBox" class="DataBox" style="color: #636363;">
-        <p id="deadCount"></p>
-        <p id="deadIncr" class="cmp"></p>
-    </div>
-   <div id="seriousBox" class="DataBox" style="color: #881919;">
-    <p id="seriousCount"></p>
-    <p id="seriousIncr"  class="cmp"></p>
-   </div>
-</div>
+    <div id="main">
+    <div id="AllDataBox">
+        <div id="BoxSet">
+        <div id="currentConfirmedBox" class="DataBox" style="color: #FF8727;">
+             <p id="currentConfirmedCount"></p>
+             <p id="currentConfirmedIncr" class="cmp"></p>
+        </div>
+        <div id="confirmedBox" class="DataBox" style="color: #D01313;">
+            <p id="confirmedCount"></p>
+             <p id="confirmedIncr" class="cmp"></p>
+      </div>
+     <div id="SuspectBox" class="DataBox" style="color: #FDE613;">
+           <p id="suspectedCount"></p>
+           <p id="suspectedIncr" class="cmp"></p>
+      </div>
+        <div id=CuredBox class="DataBox" style="color: #63F0B5;">
+          <p id="curedCount"></p>
+          <p id="curedIncr" class="cmp"></p>
+        </div>
+        <div id="DeadBox" class="DataBox" style="color: #636363;">
+           <p id="deadCount"></p>
+            <p id="deadIncr" class="cmp"></p>
+         </div>
+        <div id="seriousBox" class="DataBox" style="color: #881919;">
+            <p id="seriousCount"></p>
+             <p id="seriousIncr"  class="cmp"></p>
+        </div>
+        </div>
+        </div>
+<!--定义容器-->
+    <div id="container" style="width: 800px;height: 720px;"></div>
 
-
+    <div id="information">
     <!--易感人群-->
     <p id="susceptiblePop"></p>
-
     <!--潜伏期-->
     <p id="incubationPeriod"></p>
-
-
-
     <!--宿主-->
     <p id="parasitifer"></p>
-
     <!--病毒-->
     <p id="virus"></p>
     <!--传染源-->
     <p id="source"></p>
     <!--传染途径-->
     <p id="route"></p>
-
-
-    <!--定义容器-->
-    <div id="container" style="width: 1200px;height: 1000px;"></div>
-
+    </div>
+    
+</div>
 
 
     <!--将图标配置应用到容器里-->
@@ -117,9 +115,11 @@
                     title: {
                         text: '新型冠状病毒全国分布图',
                         left: 'center'
+                        
                     },
                     //设置背景色
                     backgroundColor: "white",
+                    
                     //视觉映射
                     visualMap: {
                         type: 'piecewise',//设置为分段
@@ -132,7 +132,7 @@
                             { gte: 1, lte: 9, color: '#fdebcf' },   // [1, 9]
                             { gte: 0, lte: 0, color: 'white' },                // 0
                         ]
-
+                        
                     },
 
                     tooltip: {
