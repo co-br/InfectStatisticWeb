@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--引入echarts-->
+    <script src="echarts.min.js"></script>
     <title>Document</title>
 </head>
 
 <body>
     <!--省份-->
     <p id="province">ok</p>
+    <!--时间-->
+    <p id='time'></p>
     <!--现存确诊-->
     <p id="currentConfirmedCount"></p>
 
@@ -20,6 +24,11 @@
     <!--治愈人数-->
     <p id="curedCount"></p>
 
+
+    <!--定义容器-->
+    <div id="confirmData" style="width: 800px;height: 600px;"></div>
+    <div id="cureData" style="width: 800px;height: 600px;"></div>
+    <div id="deathData" style="width: 800px;height: 600px;"></div>
 
 
     <script>
@@ -40,18 +49,155 @@
             params[key] = value;
 
         }
-      
+        //省份
+        var province = params.name;
+        //存放该省份的确诊数据
+        var confirmData = [];
+        //存放该省份的治愈数据
+        var cureData = [];
+        //存放该省份的死亡数据
+        var deathData = [];
 
         //更新页面上关于省份、现存确诊等的描述
-        document.getElementById('province').innerHTML = params.name;
+        document.getElementById('province').innerHTML = province;
         document.getElementById('currentConfirmedCount').innerHTML = "现存确诊" + params.currentConfirmedCount;
         document.getElementById('confirmedCount').innerHTML = "累计确诊" + params.confirmedCount;
         document.getElementById('deadCount').innerHTML = "死亡" + params.deadCount;
         document.getElementById('curedCount').innerHTML = "治愈" + params.curedCount;
+        //更新时间
+        var date = new Date(parseInt(params.time));
+        //console.log(date);
+        document.getElementById('time').innerHTML = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 
+        //获得确诊数据并画出趋势图
+        fetch(`./confirmData/${province}.txt`)
+            .then(res => res.text())
+            .then(res => {
+                confirmData = JSON.parse(res);
+                var myChart = echarts.init(document.getElementById("confirmData"));
+                var option = {
+                    title: {
+                        text: `${province}确诊人数趋势图`,
+                        left: 'center'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['确诊人数'],
+                        left: 'right',
+                        top: '5%'
+                    },
+                    xAxis: {
+                        //设置x轴为时间轴
+                        type: 'time'
+                    },
+                    yAxis: {
+                        name: '人'
+                    },
+                    series: [{
+                        name: '确诊人数',
+                        type: 'line',
+                        data: confirmData,
+                        symbolSize: 8,   //拐点圆的大小
+                        color: ['red'],//折线条的颜色
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 3
+                                }
+                            }
+                        },
+                    }]
+                };
+                myChart.setOption(option);
+            });//end of then
 
+        //获得治愈数据并画出趋势图
+        fetch(`./cureData/${province}.txt`)
+            .then(res => res.text())
+            .then(res => {
+                cureData = JSON.parse(res);
+                var myChart = echarts.init(document.getElementById("cureData"));
+                var option = {
+                    title: {
+                        text: `${province}治愈人数趋势图`,
+                        left: 'center'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['治愈人数'],
+                        left: 'right',
+                        top: '5%',
+                        textStyle: {
+                            color: "green"
+                        },
+                        borderColor: "green"
+                    },
+                    xAxis: {
+                        //设置x轴为时间轴
+                        type: 'time'
+                    },
+                    yAxis: {
+                        name: '人'
+                    },
+                    series: [{
+                        name: '治愈人数',
+                        type: 'line',
+                        data: cureData,
+                        symbolSize: 8,   //拐点圆的大小
+                        color: ['green'],//折线条的颜色
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 3
+                                }
+                            }
+                        },
 
-
+                    }]
+                };
+                myChart.setOption(option);
+            });//end of then
+        //获得死亡数据并画出趋势图
+        fetch(`./deathData/${province}.txt`)
+            .then(res => res.text())
+            .then(res => {
+                deathData = JSON.parse(res);
+                var myChart = echarts.init(document.getElementById("deathData"));
+                var option = {
+                    title: {
+                        text: `${province}死亡人数趋势图`,
+                        left: 'center'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: ['死亡人数'],
+                        left: 'right',
+                        top: '5%'
+                    },
+                    xAxis: {
+                        //设置x轴为时间轴
+                        type: 'time'
+                    },
+                    yAxis: {
+                        name: '人'
+                    },
+                    series: [{
+                        name: '死亡人数',
+                        type: 'line',
+                        data: deathData,
+                        symbolSize: 8,   //拐点圆的大小
+                        color: ['black'],//折线条的颜色
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    width: 3
+                                }
+                            }
+                        },
+                    }]//end of series
+                };//end of option
+                myChart.setOption(option);
+            });//end of then
     </script>
 
 </body>
