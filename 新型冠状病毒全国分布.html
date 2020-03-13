@@ -9,22 +9,36 @@
     <script src="echarts.min.js"></script>
     <!--引入中国地图-->
     <script src="Map/china.js"></script>
+    <link href="./style.css" type="text/css" rel="stylesheet"/>
 </head>
 
 <body>
-    <p id="currentConfirmedCount"></p>
-    <p id="confirmedCount"></p>
-    <p id="suspectedCount"></p>
-    <p id="curedCount"></p>
-    <p id="deadCount"></p>
+<div id="AllDataBox">
+    <div id="currentConfirmedBox" class="DataBox" style="color: #FF8727;">
+        <p id="currentConfirmedCount"></p>
+        <p id="currentConfirmedIncr" class="cmp"></p>
+    </div>
+    <div id="confirmedBox" class="DataBox" style="color: #D01313;">
+        <p id="confirmedCount"></p>
+        <p id="confirmedIncr" class="cmp"></p>
+    </div>
+    <div id="SuspectBox" class="DataBox" style="color: #FDE613;">
+        <p id="suspectedCount"></p>
+        <p id="suspectedIncr" class="cmp"></p>
+    </div>
+    <div id=CuredBox class="DataBox" style="color: #63F0B5;">
+        <p id="curedCount"></p>
+        <p id="curedIncr" class="cmp"></p>
+    </div>
+    <div id="DeadBox" class="DataBox" style="color: #636363;">
+        <p id="deadCount"></p>
+        <p id="deadIncr" class="cmp"></p>
+    </div>
+   <div id="seriousBox" class="DataBox" style="color: #881919;">
     <p id="seriousCount"></p>
-    <p id="suspectedIncr"></p>
-    <p id="currentConfirmedIncr"></p>
-    <p id="confirmedIncr"></p>
-    <p id="curedIncr"></p>
-    <p id="deadIncr"></p>
-    <p id="seriousIncr"></p>
-
+    <p id="seriousIncr"  class="cmp"></p>
+   </div>
+</div>
 
 
     <!--易感人群-->
@@ -74,18 +88,18 @@
                     //获取全国数据，以及和昨日对比的数据
                     var getStatisticsService = res.getStatisticsService;
                     //更新网页上全国数据以及和昨日对比的数据
-                    document.getElementById('currentConfirmedCount').innerHTML = "现存确诊" + getStatisticsService.currentConfirmedCount;
+                    document.getElementById('currentConfirmedCount').innerHTML =  "现有确诊"+getStatisticsService.currentConfirmedCount;
                     document.getElementById('confirmedCount').innerHTML = "累计确诊" + getStatisticsService.confirmedCount;
                     document.getElementById('suspectedCount').innerHTML = "疑似人数" + getStatisticsService.suspectedCount;
                     document.getElementById('curedCount').innerHTML = "治愈人数" + getStatisticsService.curedCount;
                     document.getElementById('deadCount').innerHTML = "死亡人数" + getStatisticsService.deadCount;
                     document.getElementById('seriousCount').innerHTML = "现存重症" + getStatisticsService.seriousCount;
-                    document.getElementById('suspectedIncr').innerHTML = "疑似人数较昨日" + getStatisticsService.suspectedIncr;
-                    document.getElementById('currentConfirmedIncr').innerHTML = "现存确诊较昨日" + getStatisticsService.currentConfirmedIncr;
-                    document.getElementById('confirmedIncr').innerHTML = "累计确诊较昨日" + getStatisticsService.confirmedIncr;
-                    document.getElementById('curedIncr').innerHTML = "治愈人数较昨日" + getStatisticsService.curedIncr;
-                    document.getElementById('deadIncr').innerHTML = "死亡人数较昨日" + getStatisticsService.deadIncr;
-                    document.getElementById('seriousIncr').innerHTML = "现存重症较昨日" + getStatisticsService.seriousIncr;
+                    document.getElementById('suspectedIncr').innerHTML = "较昨日" + signedNum( getStatisticsService.suspectedIncr);
+                    document.getElementById('currentConfirmedIncr').innerHTML =  "较昨日" + signedNum( getStatisticsService.currentConfirmedIncr);
+                    document.getElementById('confirmedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.confirmedIncr);
+                    document.getElementById('curedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.curedIncr);
+                    document.getElementById('deadIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.deadIncr);
+                    document.getElementById('seriousIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.seriousIncr);
                     //更新网页上关于疫情的描述，如潜伏期、宿主等
                     document.getElementById('susceptiblePop').innerHTML = getStatisticsService.remark1;
                     document.getElementById('incubationPeriod').innerHTML = getStatisticsService.remark2;
@@ -151,7 +165,11 @@
                 });
 
             })
-
+        function signedNum(num)
+        {
+            if(num>=0) return "+"+num;
+            else return num;
+        }
     </script>
 
 
