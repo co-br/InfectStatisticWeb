@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--省份-->
+    <p id="province">ok</p>
+    <!--现存确诊-->
+    <p id="currentConfirmedCount"></p>
+
+    <!--累计确诊-->
+    <p id="confirmedCount"></p>
+    <!--死亡人数-->
+    <p id="deadCount"></p>
+    <!--治愈人数-->
+    <p id="curedCount"></p>
+
+
+
+    <script>
+        //获得参数字符串
+        var paramsString = window.location.search.substring(1);
+        //解码
+        paramsString = window.decodeURIComponent(window.atob(paramsString));
+        //存储个参数及其值
+        var params = {};
+        //以&为边界将参数字符串拆分为数组
+        var parameters = paramsString.split('&');
+        for (var i = 0; i < parameters.length; i++) {
+            var s = parameters[i];
+            var l = s.length;
+            var index = s.indexOf('=');
+            var key = s.substring(0, index);
+            var value = s.substring(index + 1);
+            params[key] = value;
+
+        }
+      
+
+        //更新页面上关于省份、现存确诊等的描述
+        document.getElementById('province').innerHTML = params.name;
+        document.getElementById('currentConfirmedCount').innerHTML = "现存确诊" + params.currentConfirmedCount;
+        document.getElementById('confirmedCount').innerHTML = "累计确诊" + params.confirmedCount;
+        document.getElementById('deadCount').innerHTML = "死亡" + params.deadCount;
+        document.getElementById('curedCount').innerHTML = "治愈" + params.curedCount;
+
+
+
+
+    </script>
+
+</body>
+
+</html>
