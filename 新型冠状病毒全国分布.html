@@ -88,13 +88,14 @@
                     });
                     //获取全国数据，以及和昨日对比的数据
                     var getStatisticsService = res.getStatisticsService;
+                    console.log(getStatisticsService.confirmedIncr);
                     //更新网页上全国数据以及和昨日对比的数据
                     document.getElementById('currentConfirmedCount').innerHTML = "现有确诊" + getStatisticsService.currentConfirmedCount;
                     document.getElementById('confirmedCount').innerHTML = "累计确诊" + getStatisticsService.confirmedCount;
                     document.getElementById('suspectedCount').innerHTML = "疑似人数" + getStatisticsService.suspectedCount;
                     document.getElementById('curedCount').innerHTML = "治愈人数" + getStatisticsService.curedCount;
                     document.getElementById('deadCount').innerHTML = "死亡人数" + getStatisticsService.deadCount;
-                    document.getElementById('seriousCount').innerHTML = "现存重症" + getStatisticsService.seriousCount;
+                    document.getElementById('seriousCount').innerHTML = "现存重症" + signedNum( getStatisticsService.seriousCount);
                     document.getElementById('suspectedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.suspectedIncr);
                     document.getElementById('currentConfirmedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.currentConfirmedIncr);
                     document.getElementById('confirmedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.confirmedIncr);
@@ -189,8 +190,12 @@
 
             })
         function signedNum(num) {
-            if (num >= 0) return "+" + num;
-            else return num;
+            if(num==undefined) return "：待公布";
+                else{
+                    if (num >= 0) return "+" + num;
+                    else return num;
+                }
+            
         }
     </script>
 
