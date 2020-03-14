@@ -15,7 +15,7 @@
 <body>
     <div id="main">
         <div id="AllDataBox">
-            <div id="BoxSet">
+            <div class="BoxSet">
                 <div id="currentConfirmedBox" class="DataBox" style="color: #FF8727;">
                     <p id="currentConfirmedCount"></p>
                     <p id="currentConfirmedIncr" class="cmp"></p>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <!--定义容器-->
-        <div id="container" style="width: 800px;height: 720px;"></div>
+        <div id="container" style="width: 800px; height: 720px;"></div>
 
         <div id="information">
             <!--时间-->
@@ -95,7 +95,7 @@
                     document.getElementById('suspectedCount').innerHTML = "疑似人数" + getStatisticsService.suspectedCount;
                     document.getElementById('curedCount').innerHTML = "治愈人数" + getStatisticsService.curedCount;
                     document.getElementById('deadCount').innerHTML = "死亡人数" + getStatisticsService.deadCount;
-                    document.getElementById('seriousCount').innerHTML = "现存重症" + signedNum( getStatisticsService.seriousCount);
+                    document.getElementById('seriousCount').innerHTML = "现存重症" +getStatisticsService.seriousCount;
                     document.getElementById('suspectedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.suspectedIncr);
                     document.getElementById('currentConfirmedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.currentConfirmedIncr);
                     document.getElementById('confirmedIncr').innerHTML = "较昨日" + signedNum(getStatisticsService.confirmedIncr);

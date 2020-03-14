@@ -6,29 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--引入echarts-->
     <script src="echarts.min.js"></script>
+    <link href="./style.css" type="text/css" rel="stylesheet" />
     <title>Document</title>
 </head>
 
 <body>
-    <!--省份-->
-    <p id="province">ok</p>
-    <!--时间-->
-    <p id='time'></p>
-    <!--现存确诊-->
-    <p id="currentConfirmedCount"></p>
+    <div class="ProvinceTitle">
+        <!--省份-->
+        <p id="province">ok</p>
+        <!--时间-->
+        <p id='time'></p>
+    </div>
+    <div id=statsBox>
+        <div class="BoxSet">
+        <!--现存确诊-->
+        <p id="currentConfirmedCount" class="DataBox" style="color: #FF8727;"></p>
 
-    <!--累计确诊-->
-    <p id="confirmedCount"></p>
-    <!--死亡人数-->
-    <p id="deadCount"></p>
-    <!--治愈人数-->
-    <p id="curedCount"></p>
-
+        <!--累计确诊-->
+        <p id="confirmedCount" class="DataBox" style="color: #D01313;"></p>
+        <!--死亡人数-->
+        <p id="deadCount" class="DataBox" style="color: #636363;"></p>
+        <!--治愈人数-->
+        <p id="curedCount" class="DataBox" style="color: #63F0B5;"></p>
+        </div>
+    </div>
 
     <!--定义容器-->
-    <div id="confirmData" style="width: 1000px;height: 600px;"></div>
-    <div id="cureData" style="width: 1000px;height: 600px;"></div>
-    <div id="deathData" style="width: 1000px;height: 600px;"></div>
+    <div id="confirmData" class="DataDiagram"></div>
+    <div id="cureData" class="DataDiagram"></div>
+    <div id="deathData" class="DataDiagram"></div>
 
 
     <script>
@@ -59,11 +65,11 @@
         var deathData = [];
 
         //更新页面上关于省份、现存确诊等的描述
-        document.getElementById('province').innerHTML = province;
-        document.getElementById('currentConfirmedCount').innerHTML = "现存确诊" + params.currentConfirmedCount;
-        document.getElementById('confirmedCount').innerHTML = "累计确诊" + params.confirmedCount;
-        document.getElementById('deadCount').innerHTML = "死亡" + params.deadCount;
-        document.getElementById('curedCount').innerHTML = "治愈" + params.curedCount;
+        document.getElementById('province').innerHTML = province+"疫情趋势图";
+        document.getElementById('currentConfirmedCount').innerHTML = "现存确诊\n" + params.currentConfirmedCount;
+        document.getElementById('confirmedCount').innerHTML = "累计确诊\n" + params.confirmedCount;
+        document.getElementById('deadCount').innerHTML = "死亡人数\n" + params.deadCount;
+        document.getElementById('curedCount').innerHTML = "治愈人数\n" + params.curedCount;
         //更新时间
         var date = new Date(parseInt(params.time));
         //console.log(date);

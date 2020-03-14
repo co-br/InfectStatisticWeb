@@ -4,15 +4,12 @@ body
 }
 #main
 {
-    position: absolute;
-    margin: 0 auto;
+    margin: auto;
 }
 #AllDataBox
 {
     border-width:0px;
-  position:absolute;
-  margin: 0 auto;
-  left:160px;
+  margin:  auto;
   top:85px;
   width:800px;
   height: 170px;
@@ -32,11 +29,10 @@ body
     font-weight:700;
     text-align: center;
 }
-#BoxSet
+.BoxSet
 {
-    position: relative;
-    left:25px;
-    top:20px;
+   position: relative;
+   margin: 0 auto;
 }
 .cmp
 {
@@ -45,23 +41,41 @@ body
 }
 #container
 {
-    position: absolute;
-    margin: 0 auto;
-    top: 250px;
-    left: 160px;
+    margin:  auto;
     display: block;
 }
 #information
 {
-    position: absolute;
-    margin: 0 auto;
-    width: 720px;
+    margin:  auto;
+    width: 740px;
     top:980px ;
-    left: 160px;
+   
     padding: 2px 30px;
     background-color: #f5f5f5;
-    border-radius: 20px;
+    border-radius: 0px 0px 20px 20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 600;
     color: rgb(40, 42, 78);
+}
+.ProvinceTitle
+{
+    margin: auto;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+.DataDiagram
+{
+    width: 900px;
+    height: 400px; 
+    margin: auto;
+    top:40px;
+}
+#statsBox
+{
+    margin:  auto;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding :15px 0px;
+    width:900px;
 }
