@@ -12,7 +12,7 @@
     <link href="./style.css" type="text/css" rel="stylesheet" />
 </head>
 
-<body>
+<body onload="cycNews">
     <div id="main">
         <div id="AllDataBox">
             <div class="BoxSet">
@@ -42,9 +42,18 @@
                 </div>
             </div>
         </div>
+        
+        <div id="newsBox">
+            <p id="newsLabel">最新资讯</p>
+            <p id="newsTitle"></p>
+            <div class="getmore">
+                <a id="detailButton" >加载中</a>
+            </div>
+        </div>
+
         <!--定义容器-->
         <div id="container" style="width: 800px; height: 720px;"></div>
-
+        
         <div id="information">
             <!--时间-->
             <p id="time"></p>
@@ -67,7 +76,7 @@
     <!--将图标配置应用到容器里-->
     <script>
 
-        //存储
+        //存储获取到的数据
         var epidemicData = [];
         fetch('./server/data.json')
             .then(res => res.json())//把可读的数据流转为json格式
@@ -88,7 +97,7 @@
                     });
                     //获取全国数据，以及和昨日对比的数据
                     var getStatisticsService = res.getStatisticsService;
-                    console.log(getStatisticsService.confirmedIncr);
+                    //console.log(getStatisticsService.confirmedIncr);
                     //更新网页上全国数据以及和昨日对比的数据
                     document.getElementById('currentConfirmedCount').innerHTML = "现有确诊" + getStatisticsService.currentConfirmedCount;
                     document.getElementById('confirmedCount').innerHTML = "累计确诊" + getStatisticsService.confirmedCount;
@@ -112,9 +121,28 @@
                     //更新时间
                     var date = new Date(parseInt(getStatisticsService.modifyTime));
                     document.getElementById('time').innerHTML = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+                    //最新资讯
+                     var breaknews =getStatisticsService.marquee;
+                     var i=0;
+                    //console.log(breaknews[1]['marqueeLabel']);
+                    document.body.onload=cycNews();
+            function NextNews(){
 
-
+                         document.getElementById('newsLabel').innerHTML=breaknews[i]['marqueeLabel'];
+                         document.getElementById('newsTitle').innerHTML=breaknews[i]['marqueeContent'];
+                         document.getElementById('detailButton').innerHTML="查看详情>";
+                         document.getElementById('detailButton').setAttribute("href",breaknews[i]['marqueeLink']);
+                        
+                         i=(i+1)%3;
+                         
+                      }
+                      function cycNews(){
+                        setInterval(NextNews,2500);
+                      }
+                    
+            
                 });
+                
                 //将图表实例化和容器关联
                 var myChart = echarts.init(document.getElementById("container"));
                 //配置图表数据信息
@@ -197,6 +225,9 @@
                 }
             
         }
+        
+        
+        
     </script>
 
 

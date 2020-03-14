@@ -32,7 +32,7 @@ body
 .BoxSet
 {
    position: relative;
-   margin: 0 auto;
+   margin: 20px 2px auto;
 }
 .cmp
 {
@@ -78,4 +78,44 @@ body
     text-align: center;
     padding :15px 0px;
     width:900px;
+}
+#newsBox
+{
+    margin:  auto;
+    background-color: #f9f9f9;
+    border:  #777777 2px solid;
+    text-align: left;
+    padding :15px 0px;
+    width:800px;
+}
+ #newsLabel
+{
+    display: inline-block;
+    background-color: rgb(255, 128, 78);
+    padding: 3px 8px;
+    font-weight: 600;
+    border-radius: 5px;
+    margin: 15px;
+}
+#newsTitle
+{
+    display: inline-block;
+    margin: 10px 2px auto;
+}
+.getmore 
+{
+    display: inline-block;
+    margin: 10px 2px auto;
+    background-color: #b6b6EE;
+    padding: 3px 5px;
+    
+}
+.getmore a:link,a:visited
+{
+    text-decoration: none;
+    color: #000000;
+}
+.getmore a:hover,a:active
+{
+    background-color: #e5e5ff;
 }
