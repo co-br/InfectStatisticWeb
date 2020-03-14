@@ -1,4 +1,2 @@
-#忽略server下生成的data.json文件
-server/data.json
 #忽略VSCODE生成的.vscode
 .vscode
